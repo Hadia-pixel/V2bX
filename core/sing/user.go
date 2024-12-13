@@ -12,6 +12,7 @@ import (
 	"github.com/sagernet/sing-box/protocol/hysteria2"
 	"github.com/sagernet/sing-box/protocol/shadowsocks"
 	"github.com/sagernet/sing-box/protocol/trojan"
+	"github.com/sagernet/sing-box/protocol/tuic"
 	"github.com/sagernet/sing-box/protocol/vless"
 	"github.com/sagernet/sing-box/protocol/vmess"
 )
@@ -88,6 +89,17 @@ func (b *Sing) AddUsers(p *core.AddUsersParams) (added int, err error) {
 			id[i] = p.Users[i].Id
 		}
 		err = in.(*hysteria2.Inbound).AddUsers(us, id)
+	case "tuic":
+		us := make([]option.TUICUser, len(p.Users))
+		id := make([]int, len(p.Users))
+		for i := range p.Users {
+			us[i] = option.TUICUser{
+				Name:     p.Users[i].Uuid,
+				Password: p.Users[i].Uuid,
+			}
+			id[i] = p.Users[i].Id
+		}
+		err = in.(*tuic.Inbound).AddUsers(us, id)
 	}
 	if err != nil {
 		return 0, err
@@ -128,6 +140,8 @@ func (b *Sing) DelUsers(users []panel.UserInfo, tag string) error {
 			del = i.(*hysteria.Inbound)
 		case "hysteria2":
 			del = i.(*hysteria2.Inbound)
+		case "tuic":
+			del = i.(*tuic.Inbound)
 		}
 	} else {
 		return errors.New("the inbound not found")

@@ -34,6 +34,7 @@ type NodeInfo struct {
 	Trojan      *TrojanNode
 	Hysteria    *HysteriaNode
 	Hysteria2   *Hysteria2Node
+	Tuic        *TuicNode
 	Common      *CommonNode
 }
 
@@ -73,12 +74,13 @@ type VAllssNode struct {
 }
 
 type TlsSettings struct {
-	ServerName string `json:"server_name"`
-	Dest       string `json:"dest"`
-	ServerPort string `json:"server_port"`
-	ShortId    string `json:"short_id"`
-	PrivateKey string `json:"private_key"`
-	Xver       uint64 `json:"xver,string"`
+	ServerName string   `json:"server_name"`
+	Dest       string   `json:"dest"`
+	ServerPort string   `json:"server_port"`
+	ShortId    string   `json:"short_id"`
+	PrivateKey string   `json:"private_key"`
+	Xver       uint64   `json:"xver,string"`
+	Alpn       []string `json:"alpn"`
 }
 
 type RealityConfig struct {
@@ -113,6 +115,11 @@ type Hysteria2Node struct {
 	DownMbps     int    `json:"down_mbps"`
 	ObfsType     string `json:"obfs"`
 	ObfsPassword string `json:"obfs-password"`
+}
+
+type TuicNode struct {
+	CommonNode
+	CongestionControl string `json:"congestion_control,omitempty"`
 }
 
 type RawDNS struct {
@@ -219,6 +226,15 @@ func (c *Client) GetNodeInfo() (node *NodeInfo, err error) {
 		}
 		cm = &rsp.CommonNode
 		node.Hysteria2 = rsp
+		node.Security = Tls
+	case "tuic":
+		rsp := &TuicNode{}
+		err = json.Unmarshal(r.Body(), rsp)
+		if err != nil {
+			return nil, fmt.Errorf("decode tuic params error: %s", err)
+		}
+		cm = &rsp.CommonNode
+		node.Tuic = rsp
 		node.Security = Tls
 	}
 
