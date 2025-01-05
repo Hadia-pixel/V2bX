@@ -11,7 +11,7 @@ A V2board node server based on multi core, modified from XrayR.
 ## 特点
 
 * 永久开源且免费。
-* 支持Vmess/Vless, Trojan， Shadowsocks, Hysteria1/2多种协议。
+* 支持Vmess/Vless, Trojan, Shadowsocks, Hysteria1/2, Tuic多种协议。
 * 支持Vless和XTLS等新特性。
 * 支持单实例对接多节点，无需重复启动。
 * 支持限制在线IP。
@@ -24,18 +24,18 @@ A V2board node server based on multi core, modified from XrayR.
 
 ## 功能介绍
 
-| 功能        | v2ray | trojan | shadowsocks | hysteria1/2 |
-|-----------|-------|--------|-------------|----------|
-| 自动申请tls证书 | √     | √      | √           | √        |
-| 自动续签tls证书 | √     | √      | √           | √        |
-| 在线人数统计    | √     | √      | √           | √        |
-| 审计规则      | √     | √      | √           | √         |
-| 自定义DNS    | √     | √      | √           | √        |
-| 在线IP数限制   | √     | √      | √           | √        |
-| 连接数限制     | √     | √      | √           | √         |
-| 跨节点IP数限制  |√      |√       |√            |√          |
-| 按照用户限速    | √     | √      | √           | √         |
-| 动态限速(未测试) | √     | √      | √           | √         |
+| 功能        | v2ray | trojan | shadowsocks | hysteria1/2 | tuic |
+|-----------|-------|--------|-------------|----------|------|
+| 自动申请tls证书 | √     | √      | √           | √        | √    |
+| 自动续签tls证书 | √     | √      | √           | √        | √    |
+| 在线人数统计    | √     | √      | √           | √        | √    |
+| 审计规则      | √     | √      | √           | √         | √    |
+| 自定义DNS    | √     | √      | √           | √        | √    |
+| 在线IP数限制   | √     | √      | √           | √        | √    |
+| 连接数限制     | √     | √      | √           | √         | √    |
+| 跨节点IP数限制  |√      |√       |√            |√          | √    |
+| 按照用户限速    | √     | √      | √           | √         | √    |
+| 动态限速(未测试) | √     | √      | √           | √         | √    |
 
 ## TODO
 
